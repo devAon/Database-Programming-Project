@@ -1,1 +1,9 @@
 1573395732508	Delete element
+1573415471223	Rename type 'ShowBoardListContoller'
+1573415531999	Rename package 'controller.board'
+1573415600160	Rename type 'ConnectMessegerController'
+1573415623044	Rename type 'ConnectMessengeController'
+1573415875180	Rename package 'board_notice'
+1573415889872	Rename package 'board_freshmanot'
+1573416310752	Rename type 'ShowBoardListController'
+1573416325128	Rename type 'ShowBoardController'
