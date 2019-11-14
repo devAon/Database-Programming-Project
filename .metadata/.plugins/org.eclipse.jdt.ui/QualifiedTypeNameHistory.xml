@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="controller.board.ShowBoardController"/>
+    <fullyQualifiedTypeName name="controller.board.ShowBoardListContoller"/>
+    <fullyQualifiedTypeName name="controller.board_messenger.ConnectMessengerController"/>
+    <fullyQualifiedTypeName name="controller.board_messenger.ShowMBoardListController"/>
+    <fullyQualifiedTypeName name="controller.board_notice.ShowNBoardListController"/>
+    <fullyQualifiedTypeName name="controller.board_freshmanot.ShowFBoardListController"/>
+    <fullyQualifiedTypeName name="controller.club.ShowClubRecommendController"/>
+    <fullyQualifiedTypeName name="controller.littlemeeting.ShowLMListController"/>
+</qualifiedTypeNameHistroy>
