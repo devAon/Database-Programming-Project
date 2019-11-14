@@ -29,11 +29,4 @@ public class department {
 		this.dept_url = dept_url;
 	}
 
-	@Override
-	public String toString() {
-		return "department [dept_name=" + dept_name + ", dept_url=" + dept_url + "]";
-	}
-	
-	
-
 }
