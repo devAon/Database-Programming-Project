@@ -1,0 +1,41 @@
+package model.dao;
+
+//model
+//NoticeBoard
+//
+public class NoticeBoardDAO {
+
+	private JDBCUtil jdbcUtil = null;
+
+	public NoticeBoardDAO() {
+		jdbcUtil = new JDBCUtil();
+	}
+
+	
+	  //DB에 저장된 board 목록들을 불러옴 public List<Board> boardList() throws SQLException {
+	  String sql = "SELECT boardno, answer, inquiry, id, title, upload_time " +
+	  "FROM BOARD ORDER BY boardno DESC"; String sql =
+	  "SELECT boardno, answer, inquiry, id, title, upload_time " +
+	  "FROM BOARD ORDER BY boardno DESC";
+	  
+	  jdbcUtil.setSqlAndParameters(sql, null);
+	  
+	  try { ResultSet rs = jdbcUtil.executeQuery();
+	  jdbcUtil.setSqlAndParameters(sql, null); List<Board> boardList = new
+	  ArrayList<Board>(); while (rs.next()) { java.text.DateFormat df = new
+	  java.text.SimpleDateFormat("yyyy/MM/dd"); java.util.Date utilDate = new
+	  java.util.Date(rs.getDate("upload_time").getTime()); String date =
+	  df.format(utilDate); Board board = new Board(rs.getInt("boardno"),
+	  rs.getString("title"), rs.getString("id"), rs.getString("answer"),
+	  rs.getString("inquiry"), date); boardList.add(board); } return boardList; }
+	  catch (Exception ex) { ex.printStackTrace(); } finally { jdbcUtil.close(); }
+	  return null; }
+	  
+	  
+	  List boardList(): DB에 저장된 board 목록들을 불러옴 Board showDetail(boardNo): boardno로
+	  해당 게시글의 상세 내용을 불러옴 int create(Board, userId): 게시글 등록 int update(Board,
+	  userId): 게시글 수정 int remove(boardno): 게시글 삭제 int updateCancel(int
+	  application_check) //신청 - 취소 int updateApply(int application_check) //신청 - 신청
+	  int updatePermission(int application_check) //신청 - 승인
+	 
+}

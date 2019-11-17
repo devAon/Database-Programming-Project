@@ -1,0 +1,145 @@
+package model.dao;
+
+import java.sql.*;
+import java.util.*;
+import model.NoticeBoard;
+//model
+//NoticeBoard
+//
+public class NoticeBoardDAO {
+
+private JDBCUtil jdbcUtil = null;
+	
+	public NoticeBoardDAO() {
+		jdbcUtil = new JDBCUtil();
+	}
+	
+	//List : DB에 저장된 board 목록들을 불러옴 
+	public List<NoticeBoard> boardList() throws SQLException {
+		/*
+		 * String sql = "SELECT boardno, answer, inquiry, id, title, upload_time " +
+		 * "FROM BOARD ORDER BY boardno DESC";
+		 */
+		
+		
+		//ORDER BY b.createtime DESC 인지 ACS인지 check!!!!
+		String sql = "SELECT b.notice_board_no, b.title, b.contents, b.createtime, b.department_no, c.name AS customer_name" + 
+				"FROM notice_board b" + 
+				"INNER JOIN customer c ON b.customer_no = c.customer_no"
+				+ "ORDER BY b.createtime DESC";
+		
+		jdbcUtil.setSqlAndParameters(sql, null);
+		
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			jdbcUtil.setSqlAndParameters(sql, null);
+			
+			List<NoticeBoard> boardList = new ArrayList<NoticeBoard>();
+			
+			while (rs.next()) {
+				java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy/MM/dd");
+				java.util.Date utilDate = new java.util.Date(rs.getDate("createtime").getTime());
+				String date = df.format(utilDate);
+				
+				NoticeBoard noticeBoard = new NoticeBoard(rs.getInt("notice_board_no"), rs.getString("title"), rs.getString("contents"), 
+						date, rs.getInt("department_no"), rs.getString("customer_name"));
+				
+				boardList.add(noticeBoard);
+			}
+			return boardList;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+		return null;
+	}
+	
+	//showDetail : boardno로 해당 게시글의 상세 내용을 불러옴 
+	public NoticeBoard showDetail (int boardNo) throws SQLException {
+		String sql = "SELECT boardno, answer, inquiry, id, title, upload_time "
+				+ "FROM BOARD WHERE boardno=?";
+		
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {boardNo});
+		try {
+			ResultSet rs = jdbcUtil.executeQuery();
+			if (rs.next()) {
+				java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy/MM/dd");
+				java.util.Date utilDate = new java.util.Date(rs.getDate("upload_time").getTime());
+				String date = df.format(utilDate);
+				
+				NoticeBoard noticeBoard = new NoticeBoard(rs.getInt("boardno"), rs.getString("title"), rs.getString("id"), 
+						 rs.getString("inquiry"),rs.getString("answer"), date);
+				
+				return noticeBoard;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}
+		return null;
+	}
+	
+	//create : 게시글 등록 
+	public int upload(Board board, String userId) throws SQLException {
+		String sql = "INSERT INTO BOARD (boardno, id, title, inquiry, answer, upload_time) "
+				+ "VALUES (board_seq.nextval, ?, ?, ?, ?, SYSDATE)";
+		Object[] param = new Object[] {userId, board.getTitle(), board.getInquiry(), board.getAnswer()};
+		jdbcUtil.setSqlAndParameters(sql, param);
+		
+		try {
+			int result = jdbcUtil.executeUpdate();
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}
+		
+		return 0;
+	}
+	
+	//update : 게시글 수정 
+	public int update (Board board, int boardNo) throws SQLException {
+		String sql = "UPDATE BOARD "
+					+ "SET inquiry=?, title=? "
+					+ "WHERE boardno=?";
+		Object[] param = new Object[] {board.getInquiry(), board.getTitle(), boardNo};
+		jdbcUtil.setSqlAndParameters(sql, param);
+		
+		try {
+			int result = jdbcUtil.executeUpdate();
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}
+		return 0;
+	}
+	
+	
+	//remove : 게시글 삭제
+	public int remove (int boardNo) throws SQLException {
+		String sql = "DELETE FROM BOARD WHERE boardno=?";
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {boardNo});
+		
+		try {
+			int result = jdbcUtil.executeUpdate();
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}
+		
+		return 0;
+	}
+
+	 
+}

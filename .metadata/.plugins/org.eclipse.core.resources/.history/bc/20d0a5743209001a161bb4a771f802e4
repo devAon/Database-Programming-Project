@@ -1,0 +1,96 @@
+package model;
+
+/**
+ * 사용자 관리를 위해 필요한 도메인 클래스. USERINFO 테이블과 대응됨
+ */
+public class Customer {
+	private String customerId;
+	private String password;
+	private String name;
+	private String email;
+	private String phone;
+
+
+	public Customer() { }		// 기본 생성자
+	
+
+	public Customer(String customerId, String password, String name, String email, String phone) {
+		this.customerId = customerId;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+	}
+	
+	public Customer(String customerId, String password) {
+		super();
+		this.customerId = customerId;
+		this.password = password;
+	}
+
+	public void update(Customer updateCustomer) {
+        this.password = updateCustomer.password;
+        this.name = updateCustomer.name;
+        this.email = updateCustomer.email;
+        this.phone = updateCustomer.phone;
+    }
+	
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/* 비밀번호 검사 */
+	public boolean matchPassword(String password) {
+		if (password == null) {
+			return false;
+		}
+		return this.password.equals(password);
+	}
+	
+	public boolean isSameCustomer(String userid) {
+        return this.customerId.equals(userid);
+    }
+
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", password=" + password + ", name=" + name + ", email=" + email + ", phone="
+				+ phone + "]";
+	}	
+}
+
