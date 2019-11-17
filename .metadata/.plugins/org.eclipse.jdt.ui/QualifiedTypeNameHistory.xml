@@ -8,4 +8,5 @@
     <fullyQualifiedTypeName name="controller.board_freshmanot.ShowFBoardListController"/>
     <fullyQualifiedTypeName name="controller.club.ShowClubRecommendController"/>
     <fullyQualifiedTypeName name="controller.littlemeeting.ShowLMListController"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
 </qualifiedTypeNameHistroy>

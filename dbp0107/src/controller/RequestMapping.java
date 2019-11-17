@@ -9,8 +9,8 @@ import controller.board_freshmanot.*;
 import controller.board_messenger.*;
 import controller.board_notice.*;
 import controller.club.*;
+import controller.customer.*;
 import controller.littlemeeting.*;
-import controller.user.*;
 
 public class RequestMapping {
 	private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
@@ -22,16 +22,16 @@ public class RequestMapping {
 		// 각 uri에 대응되는 controller 객체를 생성 및 저장
 		mappings.put("/", new ForwardController("index.jsp"));
 
-		mappings.put("/user/login/form", new ForwardController("/user/loginForm.jsp"));
-		mappings.put("/user/login", new LoginController());
-		mappings.put("/user/logout", new LogoutController());
-		mappings.put("/user/list", new ListUserController());
-		mappings.put("/user/view", new ViewUserController());
-		mappings.put("/user/register/form", new ForwardController("/user/registerForm.jsp"));
-		mappings.put("/user/register", new RegisterUserController());
-		mappings.put("/user/update/form", new UpdateUserFormController());
-		mappings.put("/user/update", new UpdateUserController());
-		mappings.put("/user/delete", new DeleteUserController());
+		mappings.put("/customer/login/form", new ForwardController("/customer/loginForm.jsp"));
+		mappings.put("/customer/login", new LoginController());
+		mappings.put("/customer/logout", new LogoutController());
+		mappings.put("/customer/list", new ListCustomerController());
+		mappings.put("/customer/view", new ViewCustomerController());
+		mappings.put("/customer/register/form", new ForwardController("/customer/registerForm.jsp"));
+		mappings.put("/customer/register", new RegisterCustomerController());
+		mappings.put("/customer/update/form", new UpdateCustomerFormController());
+		mappings.put("/customer/update", new UpdateCustomerController());
+		mappings.put("/customer/delete", new DeleteCustomerController());
 
 		//mappings.put("user/myPage", new MyPageController());
 

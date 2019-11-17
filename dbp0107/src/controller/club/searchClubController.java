@@ -1,5 +1,5 @@
 package controller.club;
 
-public class searchClubController {
+public class SearchClubController {
 
 }
